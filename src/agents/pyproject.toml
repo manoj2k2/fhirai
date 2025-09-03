@@ -1,0 +1,21 @@
+
+[project]
+name = "fhir-agent"
+version = "0.1.0"
+description = "A Python project for mapping data to FHIR resources using AI."
+authors = [{ name = "Gemini", email = "gemini@google.com" }]
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "pydantic",
+    "google-generativeai",
+    "langchain",
+    "pika",
+    "pytest",
+    "langchain_community",
+    "langchain-google-genai",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"

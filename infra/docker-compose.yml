@@ -46,6 +46,22 @@ services:
     depends_on:
       - db
 
+  fhir-agent:
+    build:
+      context: ../src/agents
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8000"
+    environment:
+      - GEMINI_API_KEY=AIzaSyDmLe0kNW2DpR69QJC8jprZ1m_ueClutVY
+      - GEMINI_AI_MODEL=gemini-2.0-flash
+      - RABBITMQ_HOST=rabbitmq
+      - HAPI_FHIR_VALIDATOR_URL=http://fhir:8080/fhir/StructureDefinition
+      - FHIR_SERVER_URL=http://fhir:8080/fhir
+    depends_on:
+      - rabbitmq
+      - fhir
+
 volumes:
   rabbitmq_data: {}
   postgres_data: {}

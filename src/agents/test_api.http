@@ -1,0 +1,40 @@
+### Test the /map endpoint
+@aiMapper = http://localhost:8000
+@id = 1
+
+### Test the root endpoint
+GET {{aiMapper}}
+
+###
+POST {{aiMapper}}/map
+Content-Type: application/json
+
+{
+  "data": "Patient: John Doe, Male, 1980-01-01"
+}
+
+### Test the /correct endpoint
+POST http://localhost:8001/correct
+Content-Type: application/json
+
+{
+  "original_data": "Patient: John Doe, Male, 1980-01-01",
+  "corrected_fhir_resource": "{\"resourceType\": \"Patient\", \"name\": [{\"family\": \"Doe\", \"given\": [\"John\"]}], \"gender\": \"male\", \"birthDate\": \"1980-01-01\"}"
+}
+
+### Test Google Gemini API
+POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent
+Content-Type: application/json
+X-goog-api-key: XXX-
+
+{
+    "contents": [
+      {
+        "parts": [
+          {
+            "text": "Explain how AI works in a few words"
+          }
+        ]
+      }
+    ]
+}
