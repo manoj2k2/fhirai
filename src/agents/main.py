@@ -1,7 +1,11 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from dotenv import load_dotenv
 
-from fhir_agent import preprocessor, mapper, validator, storage, feedback
+from fhir_agent import preprocessor, storage, feedback
+from fhir_agent.fhir_mapping import map_and_validate_fhir_resource
+
+load_dotenv()
 
 app = FastAPI()
 
@@ -22,14 +26,12 @@ async def map_data(input_data: InputData):
     # Send the data to RabbitMQ for offline processing
     preprocessor.send_to_rabbitmq(normalized_data)
 
-    # Use the AI agent to map the data to a FHIR resource
-    fhir_resource = mapper.get_fhir_mapping_Subject(normalized_data)
 
-    # Validate the FHIR resource
-    is_valid = validator.validate_fhir_resource(fhir_resource)
-
-    if not is_valid:
-        raise HTTPException(status_code=400, detail="Generated FHIR resource is not valid.")
+    # Use the AI agent to map and validate the data to a FHIR resource
+    try:
+        fhir_resource = map_and_validate_fhir_resource(normalized_data)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
     # Store the FHIR resource
     try:
