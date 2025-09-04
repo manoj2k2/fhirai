@@ -1,13 +1,14 @@
 import requests
 from fhir_agent import config
 
-def save_to_fhir_server(resource: str):
+
+def save_to_fhir_server(resource: str, resurce_type: str = "Patient"):
     """Saves a FHIR resource to a FHIR server."""
 
     headers = {"Content-Type": "application/fhir+json"}
 
     response = requests.post(
-        config.FHIR_SERVER_URL,
+        f"{config.FHIR_SERVER_URL}/{resurce_type}",
         data=resource,
         headers=headers
     )

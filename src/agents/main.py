@@ -2,8 +2,8 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from dotenv import load_dotenv
 
-from fhir_agent import preprocessor, storage, feedback
-from fhir_agent.fhir_mapping import map_and_validate_fhir_resource
+from fhir_agent import preprocessor,  feedback
+from fhir_agent.fhir_processor import process_fhir_resource
 
 load_dotenv()
 
@@ -29,17 +29,9 @@ async def map_data(input_data: InputData):
 
     # Use the AI agent to map and validate the data to a FHIR resource
     try:
-        fhir_resource = map_and_validate_fhir_resource(normalized_data)
+        fhir_resource = process_fhir_resource(normalized_data)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
-
-    # Store the FHIR resource
-    try:
-        storage.save_to_fhir_server(fhir_resource)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to save FHIR resource: {e}")
-
-    return {"message": "FHIR resource created and stored successfully."}
 
 class CorrectionData(BaseModel):
     original_data: str

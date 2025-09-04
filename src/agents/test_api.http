@@ -10,7 +10,22 @@ POST {{aiMapper}}/map
 Content-Type: application/json
 
 {
-  "data": "Patient: John Doe, Male, 1980-01-01"
+  "data": "Patient: manoj sahani, Male, 1984-01-01"
+}
+###
+POST {{aiMapper}}/map
+Content-Type: application/json
+
+{
+  "data": "Practitioner Details: Name: Frau Weidhous Sahani Gender: Female Qualification: General Practitioner  "
+}
+
+###
+POST {{aiMapper}}/map
+Content-Type: application/json
+
+{
+  "data": "Doctor Details: Name: Sonia Fall , Patient name: Tanuja Kashyap . create a appointment for 11th Aug 2025 at 10am for 30 minutes  "
 }
 
 ### Test the /correct endpoint
