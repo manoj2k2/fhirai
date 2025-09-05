@@ -1,5 +1,5 @@
 ### Test the /map endpoint
-@aiMapper = http://localhost:8000
+@aiMapper = http://localhost:8001
 @id = 1
 
 ### Test the root endpoint
@@ -17,7 +17,7 @@ POST {{aiMapper}}/map
 Content-Type: application/json
 
 {
-  "data": "Practitioner Details: Name: Frau Weidhous Sahani Gender: Female Qualification: General Practitioner  "
+  "data": "Practitioner Details: Name: Meera Sahani Gender: Female Qualification: General Practitioner  "
 }
 
 ###
@@ -26,6 +26,14 @@ Content-Type: application/json
 
 {
   "data": "Doctor Details: Name: Sonia Fall , Patient name: Tanuja Kashyap . create a appointment for 11th Aug 2025 at 10am for 30 minutes  "
+}
+
+###
+POST {{aiMapper}}/map
+Content-Type: application/json
+
+{
+  "data": "Doctor Details: Name: Meera sahani , Patient name: Manoj sahani . create a appointment for 11th Aug 2025 at 10am for 30 minutes  "
 }
 
 ### Test the /correct endpoint
