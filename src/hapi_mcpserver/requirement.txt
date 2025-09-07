@@ -2,3 +2,4 @@ fastmcp
 ollama
 requests
 fastapi
+pyyaml
