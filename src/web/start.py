@@ -37,8 +37,8 @@ if user_input:
     api_response= rc.call_health_agent_api_Status()
     st.session_state.messages.append({"role": "api", "content": api_response})
 
-    api_response= rc.call_health_agent_api(user_input)
-    st.session_state.messages.append({"role": "api", "content": api_response})
+    api_response_map= rc.call_health_agent_api(user_input)
+    st.session_state.messages.append({"role": "api", "content": api_response_map})
     # # Generate a simple bot response
     # bot_response = f"I heard you say: '{user_input}'"
     # st.session_state.messages.append({"role": "bot", "content": bot_response})

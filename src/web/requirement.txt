@@ -1,2 +1,11 @@
 streamlit
 ollama
+requests
+langchain
+google-generativeai
+langchain-google-genai
+fastapi
+uvicorn
+langgraph
+streamlit
+ollama
